@@ -1,4 +1,10 @@
-use std::{error::Error, io, process};
+use std::{borrow::Borrow, collections::HashMap, error::Error, fs, io, ops::Index, process};
+
+use concat_reader::*;
+use io::Read;
+use std::fs::File;
+
+use csv::Writer;
 // use serde::Deserialize;
 // extern crate csv;
 // struct Record {
@@ -70,33 +76,105 @@ extern crate serde;
 extern crate serde_derive;
 
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "PascalCase")]
 struct Record {
+    respondent: u64,
     country: String,
-    city: String,
-    accent_city: String,
-    region: String,
-    population: Option<u64>,
-    latitude: f64,
-    longitude: f64,
 }
 
-fn run() -> Result<u64, Box<dyn Error>> {
-    let mut rdr = csv::Reader::from_reader(io::stdin());
+#[derive(Debug, Deserialize, Serialize)]
+// #[serde(rename_all = "PascalCase")]
+struct WFile {
+    id: u64,
+    country: String,
+}
 
-    let mut count = 0;
+// fn w_file(path: &str, data: csv::Writer<Vec<u8>>) -> Result<(), Box<dyn Error>> {
+//     let mut wtr = csv::WriterBuilder::new()
+//         .from_path(path)?;
+//     let mut record = csv::StringRecord::new();
+//     wtr.write_record(&[data])?;
+//     wtr.flush()?;
+//     Ok(())
+// }
+
+// fn read_and_write(
+//     in_file_path: &str,
+//     out_file_path: &str,
+// ) -> Result<(), Box<dyn Error>> {
+//     let mut rdr = csv::ReaderBuilder::new()
+//         .has_headers(false)
+//         .from_path(in_file_path)?;
+//     let mut wtr = csv::WriterBuilder::new()
+//         .from_path(out_file_path)?;
+
+// let mut record = csv::ByteRecord::new();
+// while rdr.read_byte_record(&mut record)? {
+//     wtr.write_byte_record(&record)?;
+// }
+//     wtr.flush()?;
+
+//     Ok(())
+// }
+
+// fn concat() -> Result<(), Box<dyn Error>> {
+//     let foo = File::open("dataset/2017.csv")?;
+//     let bar = File::open("dataset/2018.csv")?;
+//     let files = [foo, bar];
+//     let mut c = ConcatReader::new(&files);
+//     let mut data: Vec<u8> = vec![];
+//     c.read_to_end(&mut data)?; 
+//     use std::fs::OpenOptions;
+//     let file = OpenOptions::new()
+//     .write(true)
+//     .create(true)
+//     .append(true)
+//     .open("dataset/final_concat.csv")
+//     .unwrap();
+//     let mut wtr = csv::Writer::from_writer(file);
+//     wtr.write_byte_record(&csv::ByteRecord::from(vec![data]))?;
+//     wtr.flush()?;
+//     // fs::write("dataset/final_concat.csv", data)?;
+//     Ok(())
+// }
+fn run(path_r: &str) -> Result<u64, Box<dyn Error>> {
+    // let mut rdr = csv::ReaderBuilder::new()
+    //     .has_headers(false)
+    //     .from_path(path_r)?;
+    let mut rdr= csv::Reader::from_path(path_r)?;
+    let mut wtr = csv::Writer::from_writer(io::stdout());
+
+    let count = 0;
     for result in rdr.deserialize() {
         let record: Record = result?;
-        if record.country == "us" && record.region == "MA" {
-            count += 1;
-        }
-    }
+        // println!("teste: {:?}", record);
+        wtr.serialize( WFile{id: record.respondent, country: record.country})?;
+    //     wtr.write_record( WFile{id: record.respondent, country: record.country})?;
+    //     // let data = String::from_utf8(wtr.into_inner()?)?;
+    //     // wrt.write_record(data);
+    //     // wtr.write_record( &csv::StringRecord::from(vec![WFile{id: record.respondent, country: record.country}]))?;
+    //     // wtr.write_byte_record(&record)?;
+    } 
+    wtr.flush()?;
+    // let mut record = csv::StringRecord::new();
+    // while rdr.read_record(&mut record)? {
+    //     println!("{}", record);
+    //     // record.get(i)
+    //     // wtr.write_record( WFile{id: record.respondent, country: record.country});
+    //     // wtr.write_record(&record.index("repondent"))?;
+    // }
+    // w_file("dataset/final.csv", wtr);
+    // fs::write("/tmp/final.csv", wtr).expect("Unable to write file");
     Ok(count)
 }
 
 fn main() {
-    match run() {
+    // read_and_write("dataset/2017.csv", "dataset/final.csv").unwrap();
+    // concat();
+    //TODO: merge the files and exec run function on merged file
+    
+    match run("dataset/final_concat.csv") {
         Ok(count) => {
             println!("{}", count);
         }
