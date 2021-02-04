@@ -19,6 +19,7 @@ struct WFile<'a>{
 }
 
 fn parse(path_r: &str) -> Result<(), Box<dyn Error>> {
+    //TODO: read database folder for .csv files and not receive it as a param
     let rdr= csv::ReaderBuilder::new()
     .flexible(true)
     .from_path(path_r)?;
