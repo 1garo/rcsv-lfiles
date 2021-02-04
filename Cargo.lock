@@ -19,6 +19,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ae44d1a3d5a19df61dd0c8beb138458ac2a53a7ac09eba97d55592540004306b"
 
 [[package]]
+name = "concat-reader"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "230065ffb4349e6bdb6cffc8f60f22f1e92db7786efb1fa63564ddb47af7efcb"
+
+[[package]]
 name = "csv"
 version = "1.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -80,6 +86,7 @@ dependencies = [
 name = "rcsv-lfiles"
 version = "0.1.0"
 dependencies = [
+ "concat-reader",
  "csv",
  "serde",
  "serde_derive",
