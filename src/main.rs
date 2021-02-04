@@ -38,6 +38,7 @@ fn parse(path_r: &str) -> Result<(), Box<dyn Error>> {
 }
 
 fn main() {
+    //TODO: finish and make the README greater
     match parse("dataset/2017.csv") {
         Ok(())=> {}
         Err(err) => {
