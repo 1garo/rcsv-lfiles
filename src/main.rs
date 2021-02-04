@@ -1,4 +1,4 @@
-use std::{borrow::Borrow, collections::HashMap, error::Error, fs, io, ops::Index, process};
+use std::{borrow::Borrow, collections::HashMap, env, error::Error, fs::{self, OpenOptions}, io, ops::Index, process};
 
 use concat_reader::*;
 use io::Read;
@@ -138,11 +138,38 @@ struct WFile {
 //     // fs::write("dataset/final_concat.csv", data)?;
 //     Ok(())
 // }
+
+fn merda(path_r: &str) -> Result<(), Box<dyn Error>> {
+    let mut wtr = OpenOptions::new()
+    .write(true)
+    .append(true)
+    .open("dataset/test.csv")
+    .unwrap();
+    let mut file = OpenOptions::new()
+    .append(true)
+    .open("dataset/2017.csv")
+    .unwrap();
+    let mut file2= OpenOptions::new()
+    .write(true)
+    .append(true)
+    .open("dataset/2018.csv")
+    .unwrap();
+    let mut rdr= csv::Reader::from_reader(file);
+    let mut rdr2= csv::Reader::from_reader(file2);
+    let files = vec![rdr, rdr2];
+    for file in files {
+
+    }
+    // wtr.flush()?;
+    Ok(())
+}
 fn run(path_r: &str) -> Result<u64, Box<dyn Error>> {
     // let mut rdr = csv::ReaderBuilder::new()
     //     .has_headers(false)
     //     .from_path(path_r)?;
-    let mut rdr= csv::Reader::from_path(path_r)?;
+    let mut rdr= csv::ReaderBuilder::new()
+    .flexible(true)
+    .from_path(path_r)?;
     let mut wtr = csv::Writer::from_writer(io::stdout());
 
     let count = 0;
@@ -150,6 +177,7 @@ fn run(path_r: &str) -> Result<u64, Box<dyn Error>> {
         let record: Record = result?;
         // println!("teste: {:?}", record);
         wtr.serialize( WFile{id: record.respondent, country: record.country})?;
+
     //     wtr.write_record( WFile{id: record.respondent, country: record.country})?;
     //     // let data = String::from_utf8(wtr.into_inner()?)?;
     //     // wrt.write_record(data);
@@ -173,7 +201,7 @@ fn main() {
     // read_and_write("dataset/2017.csv", "dataset/final.csv").unwrap();
     // concat();
     //TODO: merge the files and exec run function on merged file
-    
+   merda(); 
     match run("dataset/final_concat.csv") {
         Ok(count) => {
             println!("{}", count);
