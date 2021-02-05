@@ -1,8 +1,9 @@
 # rcsv-lfiles
 
-[project that inspired this repo](https://www.reddit.com/r/rust/comments/8833lh/performance_of_parsing_large_file_2gb/)
+[reddit post that inspired this repo](https://www.reddit.com/r/rust/comments/8833lh/performance_of_parsing_large_file_2gb/)
 
-aim to do something similiar as this [repo](https://github.com/ErickWendel/concat-large-files-nodejs-yt), benchmark and see how it perform
+aim to do something similiar as this [repo](https://github.com/ErickWendel/concat-large-files-nodejs-yt), benchmark and see how it perform.
+
 ## Running/Executing the app
 #### Run all the commands below under the root of the project, otherwise the behavior could be unexpected:
 
