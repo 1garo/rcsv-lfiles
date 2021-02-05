@@ -1,23 +1,23 @@
 # rcsv-lfiles
 
-[post that inspired this repo](https://www.reddit.com/r/rust/comments/8833lh/performance_of_parsing_large_file_2gb/)
+[project that inspired this repo](https://www.reddit.com/r/rust/comments/8833lh/performance_of_parsing_large_file_2gb/)
 
 aim to do something similiar as this [repo](https://github.com/ErickWendel/concat-large-files-nodejs-yt), benchmark and see how it perform
-## Running
+## Running/Executing the app
+#### Run all the commands below under the root of the project, otherwise the behavior could be unexpected:
 
 ```sh
-$ cd dataset && curl -LO http://burntsushi.net/stuff/worldcitiespop.csv.gz
-$ gunzip worldcitiespop.csv.gz
+$ touch src/final.csv
 $ cargo build --release
-$ time ./target/release/rcsv-lfiles < dataset/worldcitiespop.csv
+$ time ./target/release/rcsv-lfiles > src/final.csv
 ```
 
-## WIP
-#### Concat the files below and change name field spaces to underscore:
+## Dataset 
+#### Download the files below, extract it under [dataset](/home/hungaro/dev/rust/rcsv-lfiles/dataset) folder:
+#### remember to change the name of files, when you download it, they are equal.
+[2018](https://www.kaggle.com/stackoverflow/stack-overflow-2018-developer-survey?select=survey_results_public.csv)
 
-2018: https://www.kaggle.com/stackoverflow/stack-overflow-2018-developer-survey?select=survey_results_public.csv
-
-2017: https://www.kaggle.com/stackoverflow/so-survey-2017?select=survey_results_public.csv
+[2017](https://www.kaggle.com/stackoverflow/so-survey-2017?select=survey_results_public.csv)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
