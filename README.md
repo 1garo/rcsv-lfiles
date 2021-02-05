@@ -8,17 +8,18 @@ aim to do something similiar as this [repo](https://github.com/ErickWendel/conca
 #### Run all the commands below under the root of the project, otherwise the behavior could be unexpected:
 
 ```sh
+$ mkdir dataset
 $ touch src/final.csv
-$ cargo build --release
-$ time ./target/release/rcsv-lfiles > src/final.csv
+$ cargo build --release && time ./target/release/rcsv-lfiles > src/final.csv
+or
+$ cargo run > src/final.csv
 ```
 
 ## Dataset 
-#### Download the files below, extract it under [dataset](/home/hungaro/dev/rust/rcsv-lfiles/dataset) folder:
+#### Download the files below, extract it under dataset folder:
 #### remember to change the name of files, when you download it, they are equal.
-[2018](https://www.kaggle.com/stackoverflow/stack-overflow-2018-developer-survey?select=survey_results_public.csv)
-
-[2017](https://www.kaggle.com/stackoverflow/so-survey-2017?select=survey_results_public.csv)
+- [2017](https://www.kaggle.com/stackoverflow/so-survey-2017?select=survey_results_public.csv)
+- [2018](https://www.kaggle.com/stackoverflow/stack-overflow-2018-developer-survey?select=survey_results_public.csv)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
