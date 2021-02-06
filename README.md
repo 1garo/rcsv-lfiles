@@ -12,7 +12,7 @@ $ mkdir dataset
 $ touch src/final.csv
 $ cargo build --release && time ./target/release/rcsv-lfiles > src/final.csv
 or
-$ cargo run > src/final.csv
+$ time cargo run > src/final.csv
 ```
 
 ## Dataset 
