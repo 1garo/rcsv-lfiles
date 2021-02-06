@@ -32,14 +32,14 @@ fn read_dataset_dir(dir: &str) -> Vec<String> {
 }
 
 fn parse() -> Result<(), Box<dyn Error>> {
-    let files_from_dir = read_dataset_dir("./dataset");
+    let files_from_dataset_dir = read_dataset_dir("./dataset");
     let mut files = vec![];
 
-    for file in files_from_dir {
-        let file_name = format!("dataset/{}", file.as_str());
+    for file in files_from_dataset_dir {
+        let file_path = format!("dataset/{}", file.as_str());
         files.push(csv::ReaderBuilder::new()
         .flexible(true)
-        .from_path(file_name).expect("error: problem to create vector of files"));
+        .from_path(file_path).expect("error: problem to create vector of files"));
     }
 
     let mut wtr = csv::Writer::from_writer(io::stdout());
