@@ -8,10 +8,11 @@ aim to do something similiar as this [repo](https://github.com/ErickWendel/conca
 #### Run all the commands below under the root of the project, otherwise the behavior could be unexpected:
 
 ```sh
-$ mkdir dataset
+$ mkdir dataset // Follow the dataset part to fill it with csv files
 $ touch src/final.csv
 $ cargo build --release && time ./target/release/rcsv-lfiles > src/final.csv
 or
+$ cargo build --release 
 $ time cargo run > src/final.csv
 ```
 
