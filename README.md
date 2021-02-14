@@ -10,10 +10,11 @@ aim to do something similiar as this [repo](https://github.com/ErickWendel/conca
 ```sh
 $ mkdir dataset // Follow the dataset part to fill it with csv files
 $ touch src/final.csv
-$ cargo build --release && time ./target/release/rcsv-lfiles > src/final.csv
+$ cargo build --release && cp target/release/*.so ./index.node && time node index.js
 or
 $ cargo build --release 
-$ time cargo run > src/final.csv
+$ cp target/release/*.so ./index.node 
+$ time node index.js
 ```
 
 ## Dataset 
