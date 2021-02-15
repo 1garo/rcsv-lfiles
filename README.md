@@ -19,7 +19,7 @@ $ time node index.js
 
 ## Dataset 
 #### Download the files below, extract it under dataset folder:
-#### remember to change the name of files, when you download it, they are equal.
+#### remember to change files name when you download it, they came equal.
 - [2017](https://www.kaggle.com/stackoverflow/so-survey-2017?select=survey_results_public.csv)
 - [2018](https://www.kaggle.com/stackoverflow/stack-overflow-2018-developer-survey?select=survey_results_public.csv)
 
