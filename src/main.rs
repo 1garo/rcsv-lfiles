@@ -1,10 +1,16 @@
-use std::{error::Error, fs, io, process};
+#![feature(proc_macro_hygiene, decl_macro)]
+use std::{error::Error, fs, process};
 
 extern crate csv;
 extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 
+
+#[macro_use] 
+extern crate rocket;
+use rocket::http::Method;
+use rocket_cors::{AllowedOrigins, CorsOptions};
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "PascalCase")]
@@ -42,7 +48,7 @@ fn parse() -> Result<(), Box<dyn Error>> {
         .from_path(file_path).expect("error: problem to create vector of files"));
     }
 
-    let mut wtr = csv::Writer::from_writer(io::stdout());
+    let mut wtr = csv::Writer::from_writer(vec![]);
     for mut file in files {
         for data in file.deserialize() {
             let f: Record = data?; 
@@ -50,15 +56,35 @@ fn parse() -> Result<(), Box<dyn Error>> {
         } 
         wtr.flush().expect("error: was not able to write file");
     }
+    let data = String::from_utf8(wtr.into_inner()?)?;
+    fs::write("./src/final.csv", data)?;
     Ok(())
 }
 
-fn main() {
+#[get("/")]
+fn index() -> &'static str {
     match parse() {
-        Ok(())=> {}
-        Err(err) => {
-            println!("{}", err);
+        Ok(())=> {
+            "Hello, world!"
+        }
+        Err(_err) => {
+            // format!("{}", err).0
+            // println!("{}", err);
             process::exit(1);
         }
     }
+}
+
+fn main() {
+    let cors = CorsOptions::default()
+    .allowed_origins(AllowedOrigins::default())
+    .allowed_methods(
+        vec![Method::Get, Method::Post, Method::Patch]
+            .into_iter()
+            .map(From::from)
+            .collect(),
+    )
+    .allow_credentials(false);
+    rocket::ignite().attach(cors.to_cors().unwrap());
+    rocket::ignite().mount("/", routes![index]).launch();
 }
