@@ -45,9 +45,9 @@ fn parse() -> Result<(), Box<dyn Error>> {
     let mut wtr = csv::Writer::from_writer(io::stdout());
     for mut file in files {
         for data in file.deserialize() {
-            let f: Record = data?; 
+            let f: Record = data?;
             wtr.serialize( WFile{id: f.respondent, country: f.country.as_str()}).expect("error: problem while serializing");
-        } 
+        }
         wtr.flush().expect("error: was not able to write file");
     }
     Ok(())
