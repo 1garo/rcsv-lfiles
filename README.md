@@ -19,7 +19,7 @@ On my Ryzen7 5800X:
 | Language     | Seconds (+-)    
 |--------------|-----------
 | Rust | **0.49**  
-| Node | 1.89
+| Node | 12
 
 ## Dataset 
 #### Download the files below and extract it under /dataset folder:
