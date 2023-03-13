@@ -1,27 +1,29 @@
 # rcsv-lfiles
 
-[reddit post that inspired this repo](https://www.reddit.com/r/rust/comments/8833lh/performance_of_parsing_large_file_2gb/)
-
-aim to do something similiar as this [repo](https://github.com/ErickWendel/concat-large-files-nodejs-yt), benchmark and see how it perform.
+[node.js example to be compared](https://github.com/ErickWendel/concat-large-files-nodejs-yt), see Benchmark for more info.
 
 ## Running/Executing the app
-#### Run all the commands below under the root of the project, otherwise the behavior could be unexpected:
+#### Example on how to run the project
 
 ```sh
-$ mkdir dataset // Follow the dataset part to fill it with csv files
+$ mkdir dataset // Follow the Dataset part to fill it with csv files
 $ touch src/final.csv
-$ cargo build --release && time ./target/release/rcsv-lfiles > src/final.csv
-or
 $ cargo build --release 
-$ time cargo run > src/final.csv
+$ time ./target/release/rcsv-lfiles 
 ```
 
+
+## Benchmark
+Running on my Ryzen7 5800X:
+rust = +-0.49s
+node = +-12s
+
 ## Dataset 
-#### Download the files below, extract it under dataset folder:
-#### remember to change the name of files, when you download it, they are equal.
+#### Download the files below and extract it under /dataset folder:
 - [2017](https://www.kaggle.com/stackoverflow/so-survey-2017?select=survey_results_public.csv)
 - [2018](https://www.kaggle.com/stackoverflow/stack-overflow-2018-developer-survey?select=survey_results_public.csv)
 
+OBS: Remember to change their name, both are gonna be `survey_results_public.csv`.
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
