@@ -14,9 +14,16 @@ $ time ./target/release/rcsv-lfiles
 
 
 ## Benchmark
-Running on my Ryzen7 5800X:
+On my Ryzen7 5800X:
+
 rust = +-0.49s
+
 node = +-12s
+
+| Language     | Seconds (+-)    
+|--------------|-----------
+| Rust | **0.49**  
+| Node | 1.89
 
 ## Dataset 
 #### Download the files below and extract it under /dataset folder:
